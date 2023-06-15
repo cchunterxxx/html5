@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <style>
+      body { margin: 0; padding-bottom: 3rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+
+      #form { background: rgba(0, 0, 0, 0.15); padding: 0.25rem; position: fixed; bottom: 0; left: 0; right: 0; display: flex; height: 3rem; box-sizing: border-box; backdrop-filter: blur(10px); }
+      #input { border: none; padding: 0 1rem; flex-grow: 1; border-radius: 2rem; margin: 0.25rem; }
+      #input:focus { outline: none; }
+      #form > button { background: #333; border: none; padding: 0 1rem; margin: 0.25rem; border-radius: 3px; outline: none; color: #fff; }
+
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages > li { padding: 0.5rem 1rem; }
+      #messages > li:nth-child(odd) { background: #efefef; }
+      html{
+	/* background-color: rgb(165,42,42); */
+	background-color: bisque;
+}
+section {
+	/* margin-left: 400px; */
+	display:flex;
+	
+	width: 1400px;
+
+}
+
+
+
+#board {
+  display: flex;
+  flex-wrap: wrap;
+  width: 500px;
+  margin: 0 auto;
+}
+
+.square {
+  padding-top: 20px;
+  width: 150px;
+  height: 150px;
+  border: 1px solid black;
+  box-sizing: border-box;
+  font-size: 100px;
+  text-align: center;
+  line-height: 100px;
+  cursor: pointer;
+  font-family: 'Anton', sans-serif;
+}
+
+.square:hover {
+  background-color: #eee;
+}
+
+.x {
+  color: red;
+}
+
+.o {
+  color: blue;
+}
+
+
+nav{
+	display: flex;
+	width:99%;
+	height: 80px;
+	background-color: brown;
+	margin-bottom: 50px;
+	margin-left: 5px;
+	color:white;
+	justify-content: space-between;
+	padding-bottom: 10px;
+	border-style: solid;
+	border-color: black;
+	border-width: 5px;
+	display: inline-block;
+	
+  }
+
+  a{border: 2px solid white;
+	margin-top:20px;
+	margin-left: 10px;
+	margin-right: 10px;
+	padding: 11px 25px;
+	font-family: 'Playfair Display', serif;
+	font-size:25px;
+	display: inline-block;
+	position: relative;
+	color: white;
+	text-decoration: none;
+	border-radius: 25%;
+  }
+
+  .kids{
+    /* margin-left: 25px; */
+    
+    background-image: url(images/kidsatcomputer.png);
+    width: 400px;
+    height: 400px;
+    background-size: cover;
+    border-style: solid;
+    border-color: black;
+      border-width: 4px;
+    background-color: bisque;
+    font-size: 20px;
+    font-weight: 900;
+    }
+
+    .brand{
+      margin-left: 600px;
+      margin-bottom: 50px;
+      }
+
+      button{
+        font-size: 40px;
+        margin-top: 20px;
+        margin-left: 400px;
+        border-radius: 50%;
+        background-color: rgb(165,42,42);
+        color:white;
+        border-style: solid;
+        border-color:red ;
+        border-width: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <ul id="messages"></ul>
+    <form id="form" action="">
+      <input id="input" autocomplete="off" /><button>Send</button>
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js" defer></script>
+
+    <nav>
+
+
+      <div class="navbutton">
+  
+        <a href="programmer.html">Programmer JAMES HUNTER</a>
+      </div>
+    </nav>
+    <div class="brand">
+      <img src="images/98 CENT LESSON Bisque.jpg" alt="Lion ">
+      <!-- <button onclick="reset()">Reset</button> -->
+    </div>
+  
+  
+  
+    <section>
+  
+      <div id="board">
+        <div class="square" id="1"></div>
+        <div class="square" id="2"></div>
+        <div class="square" id="3"></div>
+        <div class="square" id="4"></div>
+        <div class="square" id="5"></div>
+        <div class="square" id="6"></div>
+        <div class="square" id="7"></div>
+        <div class="square" id="8"></div>
+        <div class="square" id="9"></div>
+      </div>
+      <div class="kids">
+        TIC TAC TOE
+      </div>
+    </section>
+    <button id="reset">Reset</button>
+    <script src="script.js"></script>
+<script>
+  const board = document.getElementById('board');
+const squares = document.querySelectorAll('.square');
+const resetButton = document.getElementById('reset');
+
+let turn = 'X';
+
+
+
+function handleSquareClick(event) {
+  const square = event.target;
+  
+  if (square.textContent !== '') {
+    return;
+  }
+  square.classList.add(turn.toLowerCase());
+  square.textContent = turn;
+  alert(square.textContent)
+  checkWin();
+  turn = turn === 'X' ? 'O' : 'X';
+}
+
+function checkWin() {
+  const winningCombos = [    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+    [1, 4, 7],
+    [2, 5, 8],
+    [3, 6, 9],
+    [1, 5, 9],
+    [3, 5, 7],
+  ];
+  for (const combo of winningCombos) {
+    const [a, b, c] = combo;
+    const sq1 = document.getElementById(a);
+    const sq2 = document.getElementById(b);
+    const sq3 = document.getElementById(c);
+    if (
+      sq1.textContent !== '' &&
+      sq1.textContent === sq2.textContent &&
+      sq2.textContent === sq3.textContent
+    ) {
+      alert(`${turn} wins!`);
+      reset();
+      return;
+    }
+  }
+}
+
+function reset() {
+  for (const square of squares) {
+    square.classList.remove('x', 'o');
+    square.textContent = '';
+  }
+  turn = 'X';
+}
+
+for (const square of squares) {
+  square.addEventListener('click', handleSquareClick);
+}
+
+resetButton.addEventListener('click', reset);
+
+
+
+var socket = io();
+
+var messages = document.getElementById('messages');
+var form = document.getElementById('form');
+var input = document.getElementById('input');
+
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+  if (input.value) {
+    socket.emit('chat message', input.value);
+    input.value = '';
+  }
+});
+
+socket.on('chat message', function(msg) {
+  var item = document.createElement('li');
+  item.textContent = msg;
+  messages.appendChild(item);
+  window.scrollTo(0, document.body.scrollHeight);
+
+});
+
+
+  var socket = io();
+
+var messages = document.getElementById('messages');
+var form = document.getElementById('form');
+var input = document.getElementById('input');
+
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+  if (input.value) {
+    socket.emit('chat message', input.value);
+    input.value = '';
+  }
+});
+
+socket.on('chat message', function(msg) {
+  var item = document.createElement('li');
+  item.textContent = msg;
+  messages.appendChild(item);
+  window.scrollTo(0, document.body.scrollHeight);
+  document.getElementById('2').innerHTML= "C";
+});
+</script>        
+    
+    
+  </body>
+</html>

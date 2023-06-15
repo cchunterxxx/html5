@@ -1,0 +1,109 @@
+html{
+	/* background-color: rgb(165,42,42); */
+	background-color: bisque;
+}
+section {
+	/* margin-left: 400px; */
+	display:flex;
+	
+	width: 1400px;
+
+}
+
+
+
+#board {
+  display: flex;
+  flex-wrap: wrap;
+  width: 500px;
+  margin: 0 auto;
+}
+
+.square {
+  padding-top: 20px;
+  width: 150px;
+  height: 150px;
+  border: 1px solid black;
+  box-sizing: border-box;
+  font-size: 100px;
+  text-align: center;
+  line-height: 100px;
+  cursor: pointer;
+  font-family: 'Anton', sans-serif;
+}
+
+.square:hover {
+  background-color: #eee;
+}
+
+.x {
+  color: red;
+}
+
+.o {
+  color: blue;
+}
+
+
+nav{
+	display: flex;
+	width:99%;
+	height: 80px;
+	background-color: brown;
+	margin-bottom: 50px;
+	margin-left: 5px;
+	color:white;
+	justify-content: space-between;
+	padding-bottom: 10px;
+	border-style: solid;
+	border-color: black;
+	border-width: 5px;
+	display: inline-block;
+	
+  }
+
+  a{border: 2px solid white;
+	margin-top:20px;
+	margin-left: 10px;
+	margin-right: 10px;
+	padding: 11px 25px;
+	font-family: 'Playfair Display', serif;
+	font-size:25px;
+	display: inline-block;
+	position: relative;
+	color: white;
+	text-decoration: none;
+	border-radius: 25%;
+  }
+
+  .kids{
+    /* margin-left: 25px; */
+    
+    background-image: url(images/kidsatcomputer.png);
+    width: 400px;
+    height: 400px;
+    background-size: cover;
+    border-style: solid;
+    border-color: black;
+      border-width: 4px;
+    background-color: bisque;
+    font-size: 20px;
+    font-weight: 900;
+    }
+
+    .brand{
+      margin-left: 600px;
+      margin-bottom: 50px;
+      }
+
+      button{
+        font-size: 40px;
+        margin-top: 20px;
+        margin-left: 400px;
+        border-radius: 50%;
+        background-color: rgb(165,42,42);
+        color:white;
+        border-style: solid;
+        border-color:red ;
+        border-width: 6px;
+      }

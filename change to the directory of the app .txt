@@ -1,0 +1,6 @@
+change to the directory of the app c:\chat-example-master
+type node index.js
+
+
+when you open the code in visual studio you have to change the url to localhost:3000
+then open another browser to localhost:3000

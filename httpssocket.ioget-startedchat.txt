@@ -1,0 +1,15 @@
+https://socket.io/get-started/chat
+
+to make the program work
+change to the directory of the code
+
+enter the following commands
+
+npm install express@4
+
+node index.js
+run code
+change url to localhost:3000
+open another browser window and enter localhost:3000
+
+You should be able to send message from one browser to the other
